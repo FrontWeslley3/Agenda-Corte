@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgendaCorte - Barbearia</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>💈 Agenda Corte</h1>
+      <p>Escolha seu corte e agende seu horário!</p>
+    </header>
+
+    <main>
+      <section id="galeria-cortes">
+        <!-- Aqui vai a grade de cortes -->
+      </section>
+
+      <!-- Formulário (pode aparecer via JS depois) -->
+      <section id="form-agendamento" style="display: none">
+        <h2>Marque seu Horario</h2>
+        <form id="agendar-form">
+          <input type="text" name="nome" placeholder="Seu nome" required />
+          <input type="text" name="telefone" placeholder="WhatsApp" required />
+          <input type="datetime-local" name="data_hora" required />
+          <input type="text" name="corte" readonly />
+          <textarea
+            name="observacao"
+            placeholder="Algum pedido especial?"
+          ></textarea>
+          <button type="submit">Confirmar Agendamento</button>
+          <button type="button" onclick="fecharFormulario()">Cancelar</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

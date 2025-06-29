@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin - Agenda Corte</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🧔‍♂️ Painel Administrativo - Agenda Corte</h1>
+      <p>Visualize e gerencie os agendamentos recebidos</p>
+    </header>
+
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Telefone</th>
+            <th>Data/Hora</th>
+            <th>Corte</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-agendamentos">
+          <!-- Preenchido via JS -->
+        </tbody>
+      </table>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>
