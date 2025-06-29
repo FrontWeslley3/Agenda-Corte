@@ -17,11 +17,12 @@ const cortes = [
   },
 ];
 
-// Renderizar galeria
+// Referências ao DOM
 const galeria = document.getElementById("galeria-cortes");
 const form = document.getElementById("form-agendamento");
 const formElement = document.getElementById("agendar-form");
 
+// Renderiza os cards dos cortes
 cortes.forEach((corte) => {
   const card = document.createElement("div");
   card.classList.add("corte");
@@ -36,20 +37,42 @@ cortes.forEach((corte) => {
   galeria.appendChild(card);
 });
 
-// Abrir formulário com corte selecionado
+// Abre o formulário com o corte já preenchido
 function abrirFormulario(corte) {
   form.style.display = "block";
   form.scrollIntoView({ behavior: "smooth" });
   formElement.corte.value = corte;
 }
 
-// Fechar formulário
+// Fecha e reseta o formulário
 function fecharFormulario() {
   form.style.display = "none";
   formElement.reset();
 }
 
-// Enviar agendamento para API
+// Exibe notificações com Toastify
+function mostrarToast(mensagem, tipo = "info") {
+  let cor = "#3498db"; // Azul padrão
+
+  if (tipo === "sucesso") cor = "#2ecc71"; // Verde
+  if (tipo === "erro") cor = "#e74c3c"; // Vermelho
+  if (tipo === "aviso") cor = "#f39c12"; // Amarelo
+
+  Toastify({
+    text: mensagem,
+    duration: 4000,
+    gravity: "top",
+    position: "right",
+    style: {
+      background: cor,
+      color: "#fff",
+      borderRadius: "8px",
+      fontWeight: "bold",
+    },
+  }).showToast();
+}
+
+// Envia os dados do formulário para a API
 formElement.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -71,11 +94,17 @@ formElement.addEventListener("submit", async (e) => {
       body: JSON.stringify(dados),
     });
 
-    const resultado = await resposta.json();
-    alert("✅ Agendamento realizado com sucesso!");
-    fecharFormulario();
+    if (resposta.ok) {
+      mostrarToast("✅ Agendamento realizado com sucesso!", "sucesso");
+      fecharFormulario();
+    } else if (resposta.status === 400) {
+      const erro = await resposta.json();
+      mostrarToast("⚠️ " + erro.detail, "aviso");
+    } else {
+      mostrarToast("❌ Erro ao agendar. Tente novamente.", "erro");
+    }
   } catch (err) {
     console.error(err);
-    alert("❌ Erro ao agendar. Tente novamente.");
+    mostrarToast("❌ Erro de conexão com o servidor.", "erro");
   }
 });
