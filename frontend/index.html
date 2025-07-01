@@ -19,11 +19,19 @@
 
       <!-- Formulário (pode aparecer via JS depois) -->
       <section id="form-agendamento" style="display: none">
-        <h2>Marque seu Horario</h2>
+        <h2>Marque seu Horário</h2>
         <form id="agendar-form">
           <input type="text" name="nome" placeholder="Seu nome" required />
           <input type="text" name="telefone" placeholder="WhatsApp" required />
-          <input type="datetime-local" name="data_hora" required />
+
+          <!-- ✅ Atualizado com ID para controle de horário -->
+          <input
+            type="datetime-local"
+            id="data_hora"
+            name="data_hora"
+            required
+          />
+
           <input type="text" name="corte" readonly />
           <textarea
             name="observacao"
@@ -36,6 +44,7 @@
     </main>
 
     <script src="script.js"></script>
+
     <!-- Toastify CSS -->
     <link
       rel="stylesheet"

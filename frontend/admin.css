@@ -111,3 +111,39 @@ button {
 .btn-excluir:hover {
   background-color: #616161;
 }
+
+/* Estilização do seletor de filtro */
+.filtro-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+.filtro-container label {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+#filtro-status {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+#filtro-status:hover {
+  border-color: #6b119c; /* mesma cor do sistema */
+}
+
+#filtro-status:focus {
+  outline: none;
+  border-color: #6b119c;
+  box-shadow: 0 0 0 2px rgba(107, 17, 156, 0.2);
+}

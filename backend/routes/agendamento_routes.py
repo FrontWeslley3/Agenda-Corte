@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from models.agendamento import Agendamento, AtualizarStatus
 from database.mongo import agendamentos_collection
 from bson import ObjectId
+from datetime import datetime
 
 router = APIRouter()
 
@@ -10,8 +11,22 @@ router = APIRouter()
 def criar_agendamento(agendamento: Agendamento):
     """
     Cria um novo agendamento.
-    Antes de salvar, verifica se o horário já está ocupado por outro agendamento ativo.
+    Verifica:
+    - Se o horário está dentro do funcionamento da barbearia (09h às 19h)
+    - Se o horário já está ocupado
     """
+    # ✅ Validar horário de funcionamento
+    try:
+        horario = datetime.strptime(agendamento.data_hora, "%Y-%m-%d %H:%M")
+        hora = horario.hour
+        if hora < 9 or hora >= 19:
+            raise HTTPException(
+                status_code=400,
+                detail="Horário fora do funcionamento. Escolha entre 09:00 e 19:00."
+            )
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Formato de data/hora inválido.")
+
     # ✅ Verificar se já existe um agendamento no mesmo horário
     horario_ocupado = agendamentos_collection.find_one({
         "data_hora": agendamento.data_hora,

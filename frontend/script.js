@@ -39,6 +39,27 @@ cortes.forEach((corte) => {
 
 // Abre o formulário com o corte já preenchido
 function abrirFormulario(corte) {
+  const hoje = new Date();
+  const dataISO = hoje.toISOString().split("T")[0];
+
+  const inputDataHora = document.getElementById("data_hora");
+  inputDataHora.min = `${dataISO}T09:00`;
+  inputDataHora.max = `${dataISO}T18:59`;
+
+  // ✅ Verificar se o horário atual está fora do funcionamento
+  const horaAtual = hoje.getHours();
+  const botaoSubmit = formElement.querySelector("button[type='submit']");
+
+  if (horaAtual < 9 || horaAtual >= 19) {
+    botaoSubmit.disabled = true;
+    mostrarToast(
+      "⏰ Estamos fora do horário de atendimento! Agende seu corte entre 09:00 e 19:00, de segunda a sábado",
+      "aviso"
+    );
+  } else {
+    botaoSubmit.disabled = false;
+  }
+
   form.style.display = "block";
   form.scrollIntoView({ behavior: "smooth" });
   formElement.corte.value = corte;
@@ -56,7 +77,7 @@ function mostrarToast(mensagem, tipo = "info") {
 
   if (tipo === "sucesso") cor = "#2ecc71"; // Verde
   if (tipo === "erro") cor = "#e74c3c"; // Vermelho
-  if (tipo === "aviso") cor = "#f39c12"; // Amarelo
+  if (tipo === "aviso") cor = "#8B0000"; // Amarelo
 
   Toastify({
     text: mensagem,
@@ -95,11 +116,27 @@ formElement.addEventListener("submit", async (e) => {
     });
 
     if (resposta.ok) {
-      mostrarToast("✅ Agendamento realizado com sucesso!", "sucesso");
+      mostrarToast(
+        "✅ Agradecemos sua preferência! Agendamento realizado com sucesso.",
+        "sucesso"
+      );
       fecharFormulario();
     } else if (resposta.status === 400) {
       const erro = await resposta.json();
-      mostrarToast("⚠️ " + erro.detail, "aviso");
+
+      if (erro.detail.includes("Horário fora do funcionamento")) {
+        mostrarToast(
+          "⏰ Estamos fora do horário de atendimento! Agende seu corte entre 09:00 e 19:00, de segunda a sábado",
+          "aviso"
+        );
+      } else if (erro.detail.includes("Horário indisponível")) {
+        mostrarToast(
+          "⚠️ Esse horário já está ocupado. Escolha outro!",
+          "aviso"
+        );
+      } else {
+        mostrarToast("⚠️ " + erro.detail, "aviso");
+      }
     } else {
       mostrarToast("❌ Erro ao agendar. Tente novamente.", "erro");
     }
