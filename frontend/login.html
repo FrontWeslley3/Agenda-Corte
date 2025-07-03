@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Barbearia</title>
+    <!-- Importa o CSS específico da tela de login -->
+    <link rel="stylesheet" href="login.css" />
+    <!-- Importa ícones do FontAwesome para uso nos campos do formulário -->
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Container principal centralizado da tela de login -->
+    <div class="login-container">
+      <div class="login-card">
+        <!-- Seção do logo e título -->
+        <div class="logo-section">
+          <div class="barber-icon">
+            <!-- Imagem de uma máquina de barbear centralizada e estilizada -->
+            <img
+              src="assets/cortes/maquina-barbear.png"
+              alt="Máquina de Barbear"
+              style="width: 40px; height: 40px"
+            />
+          </div>
+          <h1 class="brand-title">Agenda Corte</h1>
+          <p class="brand-subtitle">Gerencie seus horários e atendimentos</p>
+        </div>
+
+        <!-- Formulário de login -->
+        <form class="login-form">
+          <!-- Campo de usuário -->
+          <div class="input-group">
+            <div class="input-wrapper">
+              <!-- Ícone de usuário -->
+              <i class="fas fa-user input-icon"></i>
+              <input type="text" id="username" placeholder="Usuário" required />
+              <span class="input-focus-border"></span>
+            </div>
+          </div>
+
+          <!-- Campo de senha -->
+          <div class="input-group">
+            <div class="input-wrapper">
+              <!-- Ícone de cadeado -->
+              <i class="fas fa-lock input-icon"></i>
+              <input
+                type="password"
+                id="password"
+                placeholder="Senha"
+                required
+              />
+              <span class="input-focus-border"></span>
+            </div>
+          </div>
+
+          <!-- Opções de lembrar login e link para recuperação de senha -->
+          <div class="remember-forgot">
+            <label class="checkbox-container">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              Lembrar-me
+            </label>
+            <a href="#" class="forgot-link">Esqueceu a senha?</a>
+          </div>
+
+          <!-- Botão de envio do formulário -->
+          <button type="submit" class="login-btn">
+            <span>ENTRAR</span>
+            <div class="btn-glow"></div>
+          </button>
+
+          <!-- Link para cadastro de novo usuário -->
+          <p class="signup-text">
+            Não tem uma conta? <a href="#" class="signup-link">Cadastre-se</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

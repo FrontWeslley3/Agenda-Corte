@@ -1,4 +1,7 @@
-// Lista de cortes (pode carregar do back futuramente)
+// ===============================
+// Lista de cortes disponíveis
+// (No futuro, pode ser carregada do backend)
+// ===============================
 const cortes = [
   {
     titulo: "Fade Clássico",
@@ -17,12 +20,16 @@ const cortes = [
   },
 ];
 
-// Referências ao DOM
+// ===============================
+// Referências aos elementos do DOM
+// ===============================
 const galeria = document.getElementById("galeria-cortes");
 const form = document.getElementById("form-agendamento");
 const formElement = document.getElementById("agendar-form");
 
-// Renderiza os cards dos cortes
+// ===============================
+// Renderiza os cards dos cortes na galeria
+// ===============================
 cortes.forEach((corte) => {
   const card = document.createElement("div");
   card.classList.add("corte");
@@ -37,47 +44,69 @@ cortes.forEach((corte) => {
   galeria.appendChild(card);
 });
 
-// Abre o formulário com o corte já preenchido
+// ===============================
+// Função para abrir o formulário de agendamento
+// Preenche o campo do corte e define limites de data/hora
+// ===============================
 function abrirFormulario(corte) {
-  const hoje = new Date();
-  const dataISO = hoje.toISOString().split("T")[0];
-
   const inputDataHora = document.getElementById("data_hora");
-  inputDataHora.min = `${dataISO}T09:00`;
-  inputDataHora.max = `${dataISO}T18:59`;
+  const agora = new Date();
 
-  // ✅ Verificar se o horário atual está fora do funcionamento
-  const horaAtual = hoje.getHours();
-  const botaoSubmit = formElement.querySelector("button[type='submit']");
+  // Define limites de horário para agendamento (09:00 às 19:00)
+  const hoje9h = new Date();
+  hoje9h.setHours(9, 0, 0, 0);
 
-  if (horaAtual < 9 || horaAtual >= 19) {
-    botaoSubmit.disabled = true;
-    mostrarToast(
-      "⏰ Estamos fora do horário de atendimento! Agende seu corte entre 09:00 e 19:00, de segunda a sábado",
-      "aviso"
-    );
+  const hoje18h = new Date();
+  hoje18h.setHours(18, 59, 59, 999);
+
+  let minDate;
+  if (agora > hoje18h) {
+    // Se já passou das 19h, só permite agendar para o próximo dia útil
+    const amanha = new Date();
+    amanha.setDate(amanha.getDate() + 1);
+    amanha.setHours(9, 0, 0, 0);
+    minDate = amanha;
+  } else if (agora < hoje9h) {
+    // Antes das 9h, só permite a partir das 9h de hoje
+    minDate = hoje9h;
   } else {
-    botaoSubmit.disabled = false;
+    // Entre 9h e 19h, permite a partir de agora
+    minDate = agora;
   }
 
+  // Define o mínimo e máximo para o input de data/hora
+  const minISO = minDate.toISOString().slice(0, 16);
+  inputDataHora.min = minISO;
+
+  const maxDate = new Date(minDate);
+  maxDate.setDate(maxDate.getDate() + 30);
+  maxDate.setHours(18, 59, 0, 0);
+  const maxISO = maxDate.toISOString().slice(0, 16);
+  inputDataHora.max = maxISO;
+
+  // Preenche o campo do corte e exibe o formulário
+  formElement.corte.value = corte;
   form.style.display = "block";
   form.scrollIntoView({ behavior: "smooth" });
-  formElement.corte.value = corte;
 }
 
-// Fecha e reseta o formulário
+// ===============================
+// Função para fechar e resetar o formulário
+// ===============================
 function fecharFormulario() {
   form.style.display = "none";
   formElement.reset();
 }
 
-// Exibe notificações com Toastify
+// ===============================
+// Função para exibir notificações usando Toastify
+// ===============================
 function mostrarToast(mensagem, tipo = "info") {
   let cor = "#3498db"; // Azul padrão
 
   if (tipo === "sucesso") cor = "#2ecc71"; // Verde
-  if (tipo === "erro") cor = "#e74c3c"; // Vermelho
-  if (tipo === "aviso") cor = "#8B0000"; // Amarelo
+  if (tipo === "erro") cor = "#e74c3c";    // Vermelho
+  if (tipo === "aviso") cor = "#8B0000";   // Vermelho escuro
 
   Toastify({
     text: mensagem,
@@ -93,18 +122,31 @@ function mostrarToast(mensagem, tipo = "info") {
   }).showToast();
 }
 
-// Envia os dados do formulário para a API
+// ===============================
+// Envia os dados do formulário para a API FastAPI
+// ===============================
 formElement.addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  // Monta o objeto com os dados do formulário
   const dados = {
     nome: formElement.nome.value,
     telefone: formElement.telefone.value,
-    data_hora: formElement.data_hora.value,
+    data_hora: formElement.data_hora.value.replace("T", " "),
     corte: formElement.corte.value,
     observacao: formElement.observacao.value,
     status: "pendente",
   };
+
+  // Bloqueia agendamento em domingos
+  const dataSelecionada = new Date(dados.data_hora);
+  if (dataSelecionada.getDay() === 0) {
+    mostrarToast(
+      "⚠️ Domingos não estão disponíveis para agendamento.",
+      "aviso"
+    );
+    return;
+  }
 
   try {
     const resposta = await fetch("http://localhost:8000/agendamentos", {
@@ -126,7 +168,7 @@ formElement.addEventListener("submit", async (e) => {
 
       if (erro.detail.includes("Horário fora do funcionamento")) {
         mostrarToast(
-          "⏰ Estamos fora do horário de atendimento! Agende seu corte entre 09:00 e 19:00, de segunda a sábado",
+          "⏰ Estamos fora do horário de atendimento! Agende entre 09:00 e 19:00, de segunda a sábado.",
           "aviso"
         );
       } else if (erro.detail.includes("Horário indisponível")) {

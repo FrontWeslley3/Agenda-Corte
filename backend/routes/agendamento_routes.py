@@ -4,6 +4,7 @@ from database.mongo import agendamentos_collection
 from bson import ObjectId
 from datetime import datetime
 
+# Cria o roteador para as rotas de agendamento
 router = APIRouter()
 
 # 📌 Rota para criar um novo agendamento
@@ -11,9 +12,9 @@ router = APIRouter()
 def criar_agendamento(agendamento: Agendamento):
     """
     Cria um novo agendamento.
-    Verifica:
-    - Se o horário está dentro do funcionamento da barbearia (09h às 19h)
-    - Se o horário já está ocupado
+    Valida:
+    - Horário de funcionamento (09h às 19h)
+    - Se já existe agendamento no mesmo horário
     """
     # ✅ Validar horário de funcionamento
     try:
@@ -39,7 +40,7 @@ def criar_agendamento(agendamento: Agendamento):
             detail="Horário indisponível. Já existe um agendamento para esse horário."
         )
 
-    # ✅ Inserir novo agendamento
+    # ✅ Inserir novo agendamento no banco
     novo_agendamento = agendamento.dict()
     resultado = agendamentos_collection.insert_one(novo_agendamento)
 
@@ -58,7 +59,7 @@ def listar_agendamentos():
     """
     agendamentos = []
     for doc in agendamentos_collection.find():
-        doc["_id"] = str(doc["_id"])
+        doc["_id"] = str(doc["_id"])  # Converte ObjectId para string
         agendamentos.append(doc)
     return agendamentos
 
@@ -71,7 +72,7 @@ def atualizar_agendamento(agendamento_id: str, agendamento: Agendamento):
     Ignora a sobrescrita do campo 'criado_em'.
     """
     dados = agendamento.dict()
-    dados.pop("criado_em", None)
+    dados.pop("criado_em", None)  # Não permite sobrescrever data de criação
 
     resultado = agendamentos_collection.update_one(
         {"_id": ObjectId(agendamento_id)},

@@ -1,0 +1,460 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+  Estilização do body para centralizar o conteúdo e aplicar fundo escuro com gradientes e efeitos visuais.
+*/
+body {
+  font-family: "Arial", sans-serif;
+  background: #000;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 
+  Gradiente de fundo adicional para efeito visual moderno.
+*/
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255, 0, 150, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
+  z-index: -2;
+}
+
+/* 
+  Overlay com padrão sutil para reforçar a identidade visual da barbearia.
+*/
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="barber" patternUnits="userSpaceOnUse" width="20" height="20"><rect width="20" height="20" fill="%23000"/><path d="M0 10h20M10 0v20" stroke="%23333" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23barber)"/></svg>')
+    center/cover;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+/* 
+  Container principal do login, centralizado e com animação de entrada.
+*/
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 
+  Cartão do login com fundo translúcido, bordas arredondadas e sombra.
+*/
+.login-card {
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 150, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 
+  Efeito de brilho animado no cartão.
+*/
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* 
+  Seção do logo centralizada.
+*/
+.logo-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* 
+  Ícone/barber centralizado, com gradiente e animação de pulsar.
+*/
+.barber-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff0096, #00ffff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  position: relative;
+  animation: pulse 2s infinite;
+}
+
+.barber-icon::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(135deg, #ff0096, #00ffff);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.3;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 
+  Caso use ícone FontAwesome, animação de bounce.
+*/
+.barber-icon i {
+  font-size: 35px;
+  color: #000;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-5px); }
+  60% { transform: translateY(-3px); }
+}
+
+/* 
+  Título da marca com efeito de brilho.
+*/
+.brand-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(255, 0, 150, 0.5), 0 0 20px rgba(255, 0, 150, 0.3);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 0, 150, 0.5),
+      0 0 20px rgba(255, 0, 150, 0.3);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 0, 150, 0.8),
+      0 0 30px rgba(255, 0, 150, 0.5);
+  }
+}
+
+/* 
+  Subtítulo discreto e estilizado.
+*/
+.brand-subtitle {
+  color: #00ffff;
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* 
+  Formulário de login.
+*/
+.login-form {
+  position: relative;
+  z-index: 1;
+}
+
+/* 
+  Agrupamento dos campos de input.
+*/
+.input-group {
+  margin-bottom: 25px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 
+  Ícone dentro do input.
+*/
+.input-icon {
+  position: absolute;
+  left: 15px;
+  color: #666;
+  font-size: 16px;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+/* 
+  Campos de input estilizados.
+*/
+input {
+  width: 100%;
+  padding: 15px 15px 15px 50px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #ff0096;
+  box-shadow: 0 0 20px rgba(255, 0, 150, 0.3);
+}
+
+input:focus + .input-focus-border {
+  transform: scaleX(1);
+}
+
+input:focus ~ .input-icon {
+  color: #ff0096;
+}
+
+/* 
+  Barra de foco animada abaixo do input.
+*/
+.input-focus-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ff0096, #00ffff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  border-radius: 0 0 12px 12px;
+}
+
+/* 
+  Área de lembrar-me e link de esqueci a senha.
+*/
+.remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+/* 
+  Checkbox customizado.
+*/
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #ccc;
+}
+
+.checkbox-container input {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #666;
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background: linear-gradient(135deg, #ff0096, #00ffff);
+  border-color: transparent;
+}
+
+.checkbox-container input:checked ~ .checkmark::after {
+  content: "✓";
+  position: absolute;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 
+  Link de esqueci a senha.
+*/
+.forgot-link {
+  color: #00ffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+  color: #ff0096;
+  text-shadow: 0 0 5px rgba(255, 0, 150, 0.5);
+}
+
+/* 
+  Botão de login com gradiente e efeito de brilho ao passar o mouse.
+*/
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #ff0096, #00ffff);
+  border: none;
+  border-radius: 12px;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-bottom: 25px;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 0, 150, 0.4);
+}
+
+.login-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.login-btn:hover .btn-glow {
+  left: 100%;
+}
+
+/* 
+  Texto de cadastro.
+*/
+.signup-text {
+  text-align: center;
+  color: #ccc;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.signup-link {
+  color: #00ffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.signup-link:hover {
+  color: #ff0096;
+  text-shadow: 0 0 5px rgba(255, 0, 150, 0.5);
+}
+
+/* 
+  Responsividade para telas pequenas.
+*/
+@media (max-width: 480px) {
+  .login-container {
+    padding: 10px;
+  }
+
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .brand-title {
+    font-size: 24px;
+  }
+
+  .barber-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .barber-icon i {
+    font-size: 30px;
+  }
+}
+
+.brand-title {
+  font-size: 24px;
+}
+
+.brand-subtitle {
+  font-size: 16px;
+}

@@ -32,11 +32,11 @@ async function carregarAgendamentos() {
         ${
           ag.status === "pendente"
             ? `
-              <button class="btn-concluir" onclick="atualizarStatus('${ag._id}', 'concluido')">Concluir</button>
-              <button class="btn-cancelar" onclick="atualizarStatus('${ag._id}', 'cancelado')">Cancelar</button>
+              <button class="acao-btn concluir" onclick="atualizarStatus('${ag._id}', 'concluido')">Concluir</button>
+              <button class="acao-btn cancelar" onclick="atualizarStatus('${ag._id}', 'cancelado')">Cancelar</button>
             `
             : `
-              <button class="btn-excluir" onclick="excluirAgendamento('${ag._id}')">🗑️ Excluir</button>
+              <button class="acao-btn excluir" onclick="excluirAgendamento('${ag._id}')">🗑️ Excluir</button>
             `
         }
       </td>

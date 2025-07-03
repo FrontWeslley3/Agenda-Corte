@@ -2,22 +2,22 @@ from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
 
-# Carregar variáveis do arquivo .env
+# Carrega variáveis do arquivo .env para proteger credenciais sensíveis
 load_dotenv()
 
-# Usar a variável de ambiente MONGO_URI
+# Obtém a URI do MongoDB da variável de ambiente
 MONGO_URI = os.getenv("MONGO_URI")
 
-# Criar o cliente MongoDB
+# Cria o cliente MongoDB (conexão com o banco)
 client = MongoClient(MONGO_URI)
 
-# Selecionar o banco de dados
+# Seleciona o banco de dados principal do projeto
 db = client["agenda-corte"]
 
-# Coleções
-cortes_collection = db["cortes"]
-agendamentos_collection = db["agendamentos"]
+# Define as coleções usadas no projeto
+cortes_collection = db["cortes"]  # Coleção para cortes disponíveis
+agendamentos_collection = db["agendamentos"]  # Coleção para agendamentos
 
-# Fechar conexão
+# Função para fechar a conexão com o banco (boa prática para testes ou scripts)
 def close_client():
     client.close()

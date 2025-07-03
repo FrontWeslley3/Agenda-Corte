@@ -2,20 +2,34 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.agendamento_routes import router as agendamento_router
 
-app = FastAPI()
+# Função para criar a aplicação FastAPI (boa prática para testes e deploy)
+def create_app() -> FastAPI:
+    # Cria a instância principal da aplicação FastAPI
+    app = FastAPI(
+        title="AgendaCorte API",  # Título da API (aparece na documentação automática)
+        description="API para gerenciamento de agendamentos de barbearia",  # Descrição da API
+        version="1.0.0"  # Versão da API
+    )
 
-# Configuração de CORS para permitir requisições do front-end
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Em produção, substitua "*" pelo domínio real (ex: "https://seusite.com")
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    # Configuração do CORS (Cross-Origin Resource Sharing)
+    # Permite que o frontend (em outro domínio/porta) acesse a API
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],  # Em produção, substitua "*" pelo domínio real (ex: "https://seusite.com")
+        allow_credentials=True,
+        allow_methods=["*"],  # Permite todos os métodos HTTP (GET, POST, etc)
+        allow_headers=["*"],  # Permite todos os headers
+    )
 
-# Incluir rotas do agendamento
-app.include_router(agendamento_router)
+    # Inclui as rotas de agendamento (importadas do módulo routes/agendamento_routes.py)
+    app.include_router(agendamento_router)
 
-@app.get("/")
-def read_root():
-    return {"mensagem": "API do AgendaCorte funcionando!"}
+    # Rota raiz ("/") para teste rápido da API
+    @app.get("/")
+    async def read_root():
+        return {"mensagem": "API do AgendaCorte funcionando!"}
+
+    return app
+
+# Cria a aplicação usando a função acima
+app = create_app()
