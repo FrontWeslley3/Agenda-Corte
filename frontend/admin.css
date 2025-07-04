@@ -8,7 +8,7 @@ body {
 header {
   text-align: center;
   padding: 2.5rem 0 1.5rem 0;
-  background: linear-gradient(90deg, #7b1fa2 60%, #00bcd4 100%);
+  background: linear-gradient(90deg, #000000 60%, #471377 100%);
   color: #fff;
   box-shadow: 0 2px 12px rgba(123, 31, 162, 0.08);
   border-bottom-left-radius: 32px;
@@ -55,11 +55,11 @@ main {
 
 #filtro-status {
   border-radius: 8px;
-  border: 1.5px solid #7b1fa2;
+  border: 1.5px solid #670670;
   padding: 0.6em 1.2em;
   font-size: 1.05rem;
   background: #f7f7fa;
-  color: #7b1fa2;
+  color: #000000;
   font-weight: 700;
   transition: border 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 4px #7b1fa211;
@@ -84,7 +84,7 @@ table {
 }
 
 thead {
-  background: linear-gradient(90deg, #7b1fa2 60%, #00bcd4 100%);
+  background: linear-gradient(90deg, #000000 60%, #471377 100%);
   color: #fff;
 }
 

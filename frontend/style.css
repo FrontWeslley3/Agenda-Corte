@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: 'Montserrat', Arial, sans-serif;
+  font-family: "Montserrat", Arial, sans-serif;
   background: linear-gradient(135deg, #f3e7e9 0%, #e3eeff 100%);
   min-height: 100vh;
   margin: 0;
@@ -18,7 +18,7 @@ body {
 header {
   text-align: center;
   padding: 2rem 0 1rem 0;
-  background: linear-gradient(90deg, #7b1fa2 60%, #00bcd4 100%);
+  background: linear-gradient(90deg, #000000 60%, #362798 100%);
   color: #fff;
   box-shadow: 0 2px 12px rgba(123, 31, 162, 0.08);
 }
@@ -71,9 +71,12 @@ main {
 
 .corte img {
   width: 100%;
-  height: 180px;
+  height: 330px;
   object-fit: cover;
-  border-bottom: 2px solid #7b1fa2;
+  border-bottom: 2px solid #2a0d36;
+  border-radius: 12px;
+  margin: 0 auto; /* Centraliza se o card for maior */
+  display: block;
 }
 
 .corte-info {
@@ -83,7 +86,7 @@ main {
 
 .corte-info h3 {
   font-size: 1.3rem;
-  color: #7b1fa2;
+  color: #4f0270;
   margin-bottom: 0.5em;
   font-weight: 700;
 }
@@ -95,7 +98,7 @@ main {
 }
 
 .corte-info button {
-  background: linear-gradient(90deg, #7b1fa2 60%, #00bcd4 100%);
+  background: linear-gradient(90deg, #000000 60%, #471377 100%);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -108,7 +111,7 @@ main {
 }
 
 .corte-info button:hover {
-  background: linear-gradient(90deg, #00bcd4 60%, #7b1fa2 100%);
+  background: linear-gradient(90deg, #329087 60%, #47384e 100%);
   transform: scale(1.07);
 }
 
@@ -167,7 +170,7 @@ main {
 }
 
 #agendar-form button[type="submit"] {
-  background: linear-gradient(90deg, #7b1fa2 60%, #00bcd4 100%);
+  background: linear-gradient(90deg, #000000 60%, #471377 100%);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -180,13 +183,13 @@ main {
 }
 
 #agendar-form button[type="submit"]:hover {
-  background: linear-gradient(90deg, #00bcd4 60%, #7b1fa2 100%);
+  background: linear-gradient(90deg, #329087 60%, #47384e 100%);
   transform: scale(1.07);
 }
 
 #agendar-form button[type="button"] {
   background: #eee;
-  color: #7b1fa2;
+  color: #db0b0b;
   border: none;
   border-radius: 8px;
   padding: 0.7em 1.5em;
@@ -198,8 +201,24 @@ main {
 }
 
 #agendar-form button[type="button"]:hover {
-  background: #7b1fa2;
+  background: linear-gradient(90deg, #0c1413 60%, #b00000 100%);
   color: #fff;
+}
+
+/* Centraliza e estiliza o vídeo */
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0 2.5rem 0;
+}
+
+.video-container video {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 18px;
+  box-shadow: 0 4px 32px #0002;
+  outline: none;
 }
 
 @keyframes fadeInUp {

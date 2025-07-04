@@ -18,6 +18,36 @@ const cortes = [
     descricao: "Corte com desenho personalizado",
     imagem: "assets/cortes/afro.jpeg",
   },
+  {
+    titulo: "Moicano",
+    descricao: "Estilo ousado com laterais baixas",
+    imagem: "assets/cortes/moicano.jpeg",
+  },
+  {
+    titulo: "Navalhado",
+    descricao: "Corte com acabamento na navalha",
+    imagem: "assets/cortes/navalhado.jpeg",
+  },
+  {
+    titulo: "Americano",
+    descricao: "Corte com volume no topo e laterais curtas",
+    imagem: "assets/cortes/americano.jpeg",
+  },
+  {
+    titulo: "Black Power",
+    descricao: "Corte com camadas e texturização",
+    imagem: "assets/cortes/Black Power.jpeg",
+  },
+  {
+    titulo: "Raspado",
+    descricao: "Corte bem curto, quase na pele",
+    imagem: "assets/cortes/raspado.jpeg",
+  },
+  {
+    titulo: "Corte Disfarçado com desenho",
+    descricao: "Fade com desenho personalizado.",
+    imagem: "assets/cortes/Corte Disfarçado com desenho.jpeg",
+  },
 ];
 
 // ===============================
@@ -105,8 +135,8 @@ function mostrarToast(mensagem, tipo = "info") {
   let cor = "#3498db"; // Azul padrão
 
   if (tipo === "sucesso") cor = "#2ecc71"; // Verde
-  if (tipo === "erro") cor = "#e74c3c";    // Vermelho
-  if (tipo === "aviso") cor = "#8B0000";   // Vermelho escuro
+  if (tipo === "erro") cor = "#e74c3c"; // Vermelho
+  if (tipo === "aviso") cor = "#8B0000"; // Vermelho escuro
 
   Toastify({
     text: mensagem,
